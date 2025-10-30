@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ciclo em Harmonia</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --bg: #f7fafc;
+        --surface: #ffffff;
+        --t1: #334155;
+        --t2: #64748b;
+        --m1: #a9d6e5;
+        --alert: #fbc4ab;
+        --m2: #e2c2ff;
+        --m3: #cdeac0;
+        --m4: #ffd6e7;
+        --m5: #bfe3da;
+      }
+      body {
+        background: var(--bg);
+        color: var(--t1);
+      }
+      .card {
+        border: 1px solid #e2e8f0;
+      }
+      .chip {
+        border-radius: 9999px;
+        padding: 2px 10px;
+        font-size: 12px;
+      }
+      /* gráfico simples “donut” só para decorar (SVG) */
+      .donut {
+        width: 180px;
+        height: 180px;
+      }
+      .modal {
+        display: none;
+      }
+      .modal.open {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header
+      class="pt-10 pb-6 text-center bg-gradient-to-b from-sky-200 to-sky-100"
+    >
+      <h1 class="text-2xl font-bold">Ciclo em Harmonia</h1>
+      <div class="mx-auto mt-6 donut">
+        <svg viewBox="0 0 36 36">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop stop-color="#ffffff55" />
+              <stop offset="1" stop-color="#ffffff00" />
+            </linearGradient>
+          </defs>
+          <circle cx="18" cy="18" r="15.915" fill="#fff" />
+          <circle cx="18" cy="18" r="13" fill="#F8FBFF" />
+          <path
+            d="M18 18 m 0 -15.915 a 15.915 15.915 0 0 1 10.5 4.2"
+            stroke="#FF9BB3"
+            stroke-width="3"
+            fill="none"
+          />
+          <path
+            d="M28.5 6.285 A 15.915 15.915 0 0 1 31.83 18"
+            stroke="#A4E4CE"
+            stroke-width="3"
+            fill="none"
+          />
+          <path
+            d="M31.83 18 A 15.915 15.915 0 0 1 18 33.915"
+            stroke="#B0C6FF"
+            stroke-width="3"
+            fill="none"
+          />
+          <path
+            d="M18 33.915 A 15.915 15.915 0 0 1 18 2.085"
+            stroke="#95D3E6"
+            stroke-width="3"
+            fill="none"
+          />
+          <circle cx="18" cy="18" r="6" fill="#fff" />
+          <circle cx="18" cy="18" r="2" fill="#EF4444" />
+        </svg>
+      </div>
+    </header>
+
+    <!-- Conteúdo -->
+    <main class="flex-1 pb-24 max-w-md mx-auto w-full px-4 -mt-10">
+      <!-- Cards -->
+      <div class="space-y-3">
+        <button
+          data-modal="mod1"
+          class="w-full text-left bg-[var(--surface)] card rounded-2xl px-4 py-3 flex items-center gap-3"
+        >
+          <span class="chip" style="background: var(--m1)">Módulo 1</span>
+          <div>
+            <div class="font-semibold">O CICLO SEM MISTÉRIO</div>
+            <div class="text-sm text-[var(--t2)]">
+              Duração normal: 21–35 dias
+            </div>
+          </div>
+        </button>
+
+        <button
+          data-modal="alertas"
+          class="w-full text-left bg-[var(--alert)]/40 card rounded-2xl px-4 py-3 flex items-center gap-3"
+        >
+          <span>⚠️</span>
+          <div>
+            <div class="font-semibold">Sinais de Alerta</div>
+            <div class="text-sm text-[var(--t2)]">
+              Quando procurar o Enfermeiro?
+            </div>
+          </div>
+        </button>
+
+        <button
+          data-modal="mod2"
+          class="w-full text-left bg-[var(--m2)]/40 card rounded-2xl px-4 py-3 flex items-center gap-3"
+        >
+          <span>🧘‍♀️</span>
+          <div>
+            <div class="font-semibold">Módulo 2 – Bem-Estar e Emoções</div>
+            <div class="text-sm text-[var(--t2)]">Cólicas: o que alivia?</div>
+          </div>
+        </button>
+
+        <button
+          data-modal="mod3"
+          class="w-full text-left bg-[var(--m3)]/40 card rounded-2xl px-4 py-3 flex items-center gap-3"
+        >
+          <span>🧺</span>
+          <div>
+            <div class="font-semibold">
+              Módulo 3 – Cuidados Práticos e Higiene
+            </div>
+            <div class="text-sm text-[var(--t2)]">Higiene íntima correta</div>
+          </div>
+        </button>
+
+        <button
+          data-modal="mod4"
+          class="w-full text-left bg-[var(--m4)]/40 card rounded-2xl px-4 py-3 flex items-center gap-3"
+        >
+          <span>💘</span>
+          <div>
+            <div class="font-semibold">Sexualidade e Prevenção</div>
+            <div class="text-sm text-[var(--t2)]">
+              O ciclo NÃO é contraceptivo!
+            </div>
+          </div>
+        </button>
+
+        <button
+          data-modal="mod5"
+          class="w-full text-left bg-[var(--m5)]/40 card rounded-2xl px-4 py-3 flex items-center gap-3"
+        >
+          <span>✅</span>
+          <div>
+            <div class="font-semibold">Onde Buscar Ajuda</div>
+            <div class="text-sm text-[var(--t2)]">
+              Enfermaria escolar, UBS e psicólogo
+            </div>
+          </div>
+        </button>
+      </div>
+    </main>
+
+    <!-- Bottom nav (visual) -->
+    <nav
+      class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200"
+    >
+      <div
+        class="max-w-md mx-auto grid grid-cols-4 text-center py-2 text-slate-500"
+      >
+        <div class="text-sky-600 font-medium">
+          🏠
+          <div class="text-xs">Início</div>
+        </div>
+        <div>
+          📅
+          <div class="text-xs">Calendário</div>
+        </div>
+        <div>
+          💬
+          <div class="text-xs">Comunidade</div>
+        </div>
+        <div>
+          👤
+          <div class="text-xs">Perfil</div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Modais dos módulos -->
+    <!-- Módulo 1 -->
+    <section
+      id="mod1"
+      class="modal fixed inset-0 bg-black/40 items-end sm:items-center justify-center"
+    >
+      <div
+        class="bg-white rounded-t-2xl sm:rounded-2xl max-w-md w-full p-5 space-y-3"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold">Módulo 1 – O Ciclo sem Mistério</h2>
+          <button class="close text-2xl leading-none">×</button>
+        </div>
+        <p>
+          <b>O que é o Ciclo?</b><br />
+          O ciclo menstrual começa no primeiro dia da sua menstruação e vai até
+          o dia anterior à próxima. Seu corpo se prepara para uma possível
+          gravidez a cada mês. Se ela não acontece, ele 'limpa a casa' e o
+          sangramento vem. <b>Duração Normal: 21 a 35 dias.</b>
+        </p>
+        <div class="space-y-2">
+          <div>
+            <b>Menstruação:</b> É a descamação da camada interna do seu útero
+            (endométrio). Dica: Não é sangue 'sujo'! É apenas um tecido que seu
+            corpo não precisava mais. Dura 3–7 dias.
+          </div>
+          <div>
+            <b>Folicular (Pré-Ovulação):</b> Seu corpo produz estrogênio e
+            prepara um óvulo. É comum mais energia e foco.
+          </div>
+          <div>
+            <b>Ovulação:</b> O óvulo é liberado; muco vaginal pode ficar
+            transparente e elástico.
+          </div>
+          <div>
+            <b>Lútea (Pré-Menstrual):</b> Progesterona domina; sono, inchaço e
+            TPM podem aparecer.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sinais de Alerta -->
+    <section
+      id="alertas"
+      class="modal fixed inset-0 bg-black/40 items-end sm:items-center justify-center"
+    >
+      <div
+        class="bg-white rounded-t-2xl sm:rounded-2xl max-w-md w-full p-5 space-y-3"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold">🚨 Sinais de Alerta</h2>
+          <button class="close text-2xl leading-none">×</button>
+        </div>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>
+            <b>Fluxo Muito Forte:</b> trocar absorvente de hora em hora por mais
+            de 4 horas seguidas.
+          </li>
+          <li>
+            <b>Dor Incapacitante:</b> cólica que não passa com remédio ou impede
+            atividades / causa vômito.
+          </li>
+          <li>
+            <b>Ciclos Extremos:</b> menores que 21 dias ou maiores que 35 dias
+            de forma persistente.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Módulo 2 -->
+    <section
+      id="mod2"
+      class="modal fixed inset-0 bg-black/40 items-end sm:items-center justify-center"
+    >
+      <div
+        class="bg-white rounded-t-2xl sm:rounded-2xl max-w-md w-full p-5 space-y-3"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold">Módulo 2 – Bem-Estar e Emoções</h2>
+          <button class="close text-2xl leading-none">×</button>
+        </div>
+        <p><b>Cólicas: O Que Alivia?</b></p>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>🔥 <b>Calor:</b> bolsa de água quente na barriga/costas.</li>
+          <li>
+            💊 <b>Remédio:</b> tomar no início do incômodo (oriente-se com o
+            enfermeiro).
+          </li>
+          <li>🧘‍♀️ <b>Movimento:</b> alongamentos e caminhadas leves.</li>
+        </ul>
+        <p>
+          <b>TPM vs. TDPM:</b> se emoções/ansiedade atrapalham seus
+          estudos/convivência, pode ser TDPM. Procure enfermeiro(a) ou
+          psicólogo(a).
+        </p>
+        <p><b>Nutrição e Humor:</b></p>
+        <ul class="list-disc pl-5 space-y-1">
+          <li><b>Beba água</b> para reduzir inchaço.</li>
+          <li>
+            <b>Coma ferro</b> (carne, folhas escuras) para repor durante o
+            fluxo.
+          </li>
+          <li><b>Reduza o sal</b> para diminuir retenção.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Módulo 3 -->
+    <section
+      id="mod3"
+      class="modal fixed inset-0 bg-black/40 items-end sm:items-center justify-center"
+    >
+      <div
+        class="bg-white rounded-t-2xl sm:rounded-2xl max-w-md w-full p-5 space-y-3"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold">
+            Módulo 3 – Cuidados Práticos e Higiene
+          </h2>
+          <button class="close text-2xl leading-none">×</button>
+        </div>
+        <p>
+          <b>Higiene Íntima Correta:</b> lavar sempre de frente para trás; água
+          + sabão neutro apenas na parte externa. <b>Não</b> lave o canal
+          vaginal por dentro.
+        </p>
+        <p>
+          <b>Frequência de Troca:</b> absorvente externo a cada 3–4 horas, mesmo
+          com pouco fluxo.
+        </p>
+        <p>
+          <b>EcoAbsorvente de Pano:</b> sustentável, econômico, confortável.
+          Lave à mão, seque ao sol e guarde em local arejado.
+        </p>
+        <p>
+          <b>Descarte Consciente:</b> lixo comum, embrulhado em papel;
+          <b>nunca</b> no vaso.
+        </p>
+      </div>
+    </section>
+
+    <!-- Módulo 4 -->
+    <section
+      id="mod4"
+      class="modal fixed inset-0 bg-black/40 items-end sm:items-center justify-center"
+    >
+      <div
+        class="bg-white rounded-t-2xl sm:rounded-2xl max-w-md w-full p-5 space-y-3"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold">
+            Módulo 4 – Sexualidade e Prevenção
+          </h2>
+          <button class="close text-2xl leading-none">×</button>
+        </div>
+        <p>
+          <b>O Ciclo Não é Contraceptivo!</b><br />
+          Mito: o ciclo regular evita gravidez.<br />
+          Verdade: o corpo adolescente é irregular; use métodos de prevenção.
+        </p>
+        <p>
+          <b>Prevenção de ISTs/Aids:</b> camisinha é o único método que previne
+          ISTs e ajuda a evitar gravidez (disponível grátis na escola/UBS).
+        </p>
+        <p>
+          <b>Métodos Contraceptivos:</b> pense em pílula/injetável/implante?
+          Procure orientação do enfermeiro(a) e acompanhamento.
+        </p>
+      </div>
+    </section>
+
+    <!-- Módulo 5 -->
+    <section
+      id="mod5"
+      class="modal fixed inset-0 bg-black/40 items-end sm:items-center justify-center"
+    >
+      <div
+        class="bg-white rounded-t-2xl sm:rounded-2xl max-w-md w-full p-5 space-y-3"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold">Módulo 5 – Onde Buscar Ajuda</h2>
+          <button class="close text-2xl leading-none">×</button>
+        </div>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>
+            <b>Enfermeiro(a) escolar:</b> dúvidas sobre ciclo, cólicas,
+            contraceptivos e ISTs.
+          </li>
+          <li>
+            <b>Posto de Saúde/UBS:</b> camisinhas, testes rápidos, pílula do dia
+            seguinte.
+          </li>
+          <li>
+            <b>Psicólogo(a):</b> suporte emocional, ansiedade, TDPM e
+            relacionamentos.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- JS: abre/fecha modais -->
+    <script>
+      const open = (id) => document.getElementById(id).classList.add("open");
+      const closeAll = () =>
+        document
+          .querySelectorAll(".modal")
+          .forEach((m) => m.classList.remove("open"));
+      document.querySelectorAll("[data-modal]").forEach((btn) => {
+        btn.addEventListener("click", () => open(btn.dataset.modal));
+      });
+      document.querySelectorAll(".modal").forEach((m) => {
+        m.addEventListener("click", (e) => {
+          if (e.target.classList.contains("modal")) closeAll();
+        });
+        m.querySelector(".close").addEventListener("click", closeAll);
+      });
+    </script>
+  </body>
+</html>
